@@ -24,7 +24,15 @@ const Navbar = () => {
               width="36px"
               height="36px"
             />
-            <p>Explore</p>
+            <p
+              className={
+                pathMatchRoute("/")
+                  ? "NavbarListItemNameActive"
+                  : "NavbarListItemName"
+              }
+            >
+              Explore
+            </p>
           </li>
           <li className="navbarListItems" onClick={() => navigate("/offers")}>
             <OfferIcon
@@ -32,7 +40,15 @@ const Navbar = () => {
               width="36px"
               height="36px"
             />
-            <p>Offer</p>
+            <p
+              className={
+                pathMatchRoute("/offers")
+                  ? "NavbarListItemNameActive"
+                  : "NavbarListItemName"
+              }
+            >
+              Offer
+            </p>
           </li>
           <li className="navbarListItems" onClick={() => navigate("/profile")}>
             <PersonOutlineIcon
@@ -40,7 +56,15 @@ const Navbar = () => {
               width="36px"
               height="36px"
             />
-            <p>Profile</p>
+            <p
+              className={
+                pathMatchRoute("/profile")
+                  ? "NavbarListItemNameActive"
+                  : "NavbarListItemName"
+              }
+            >
+              Profile
+            </p>
           </li>
         </ul>
       </nav>
