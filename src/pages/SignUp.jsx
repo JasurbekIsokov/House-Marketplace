@@ -27,6 +27,7 @@ const SignUn = () => {
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
+      // input change bo'lganda uning id si orqali bu qaysi input ekanligini aniqlab oladi
       [e.target.id]: e.target.value,
     }));
   };
