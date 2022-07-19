@@ -68,7 +68,7 @@ const SignIn = () => {
       </form>
 
       {/* Google Aouth */}
-      <Link to="/sign-in" className="registerLink">
+      <Link to="/sign-up" className="registerLink">
         Sign Up Instead
       </Link>
     </div>
