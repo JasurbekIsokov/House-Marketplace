@@ -10,6 +10,7 @@ import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 
 import { toast } from "react-toastify";
 
+import OAuth from "../Components/OAuth";
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visibilityIcon from "../assets/svg/visibilityIcon.svg";
 
@@ -118,7 +119,8 @@ const SignUn = () => {
         </div>
       </form>
 
-      {/* Google Aouth */}
+      <OAuth />
+
       <Link to="/sign-in" className="registerLink">
         Sign Ip Instead
       </Link>
