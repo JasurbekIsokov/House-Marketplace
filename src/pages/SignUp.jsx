@@ -1,5 +1,12 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { db } from "../firebace.config";
+
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visibilityIcon from "../assets/svg/visibilityIcon.svg";
 
@@ -21,13 +28,37 @@ const SignUn = () => {
     }));
   };
 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const auth = getAuth();
+
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      const user = userCredential.user;
+
+      updateProfile(auth.currentUser, {
+        displayName: name,
+      });
+
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="pageContainer">
       <header>
         <p className="pageHeader">Welcome Back!</p>
       </header>
 
-      <form>
+      <form onSubmit={onSubmit}>
         <input
           type="name"
           name="name"
