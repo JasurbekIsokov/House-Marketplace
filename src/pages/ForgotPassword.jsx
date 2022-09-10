@@ -23,9 +23,7 @@ const ForgotPassword = () => {
 
   return (
     <div className="pageContainer">
-      <header>
-        <p className="pageHeader">Forgot Password</p>
-      </header>
+      <p className="pageHeader">Forgot Password</p>
 
       <main>
         <form onSubmit={onSubmit}>
