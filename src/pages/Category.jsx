@@ -8,6 +8,7 @@ import {
   orderBy,
   limit,
   startAfter,
+  getDocs,
 } from "firebase/firestore";
 import { db } from "../firebace.config";
 import { toast } from "react-toastify";
@@ -32,6 +33,16 @@ const Category = () => {
           orderBy("timestamp", "desc"),
           limit(10)
         );
+
+        // Execute query
+        const querySnap = await getDocs(q);
+
+        let listings = [];
+
+        querySnap.forEach((doc) => {
+          console.log(doc.data());
+          console.log(1);
+        });
       } catch (error) {}
     };
 
