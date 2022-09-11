@@ -107,6 +107,18 @@ const CreateListing = () => {
               Rent
             </button>
           </div>
+
+          <label className="formLabel">Name</label>
+          <input
+            className="formInputName"
+            type="text"
+            id="name"
+            value={name}
+            onChange={onMutate}
+            maxLength="32"
+            minLength="10"
+            required
+          />
         </form>
       </main>
     </div>
