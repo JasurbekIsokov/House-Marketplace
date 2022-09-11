@@ -261,6 +261,21 @@ const CreateListing = () => {
               No
             </button>
           </div>
+
+          <label className="formLabel">Regular Price</label>
+          <div className="formPriceDiv">
+            <input
+              className="formInputSmall"
+              type="number"
+              id="regularPrice"
+              value={regularPrice}
+              onChange={onMutate}
+              min="50"
+              max="750000000"
+              required
+            />
+            {type === "rent" && <p className="formPriceText">$ / Month</p>}
+          </div>
         </form>
       </main>
     </div>
