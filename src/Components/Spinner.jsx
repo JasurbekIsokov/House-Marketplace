@@ -1,9 +1,9 @@
-const Spinner = () => {
+function Spinner() {
   return (
     <div className="loadingSpinnerContainer">
-      <div className="loadigSpinner"></div>
+      <div className="loadingSpinner"></div>
     </div>
   );
-};
+}
 
 export default Spinner;
