@@ -33,6 +33,22 @@ const CreateListing = () => {
     longitude: 0,
   });
 
+  const {
+    type,
+    name,
+    bedrooms,
+    bathrooms,
+    parking,
+    furnished,
+    address,
+    offer,
+    regularPrice,
+    discountedPrice,
+    images,
+    latitude,
+    longitude,
+  } = formData;
+
   const auth = getAuth();
   const navigate = useNavigate();
   const isMounted = useRef(true);
@@ -57,7 +73,44 @@ const CreateListing = () => {
     return <Spinner />;
   }
 
-  return <h1>Create</h1>;
+  const onSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const onMutate = (e) => {};
+
+  return (
+    <div className="profile">
+      <header>
+        <p className="pageHeader">Create a Listing</p>
+      </header>
+      <main>
+        <form onSubmit={onSubmit}>
+          <label className="formLabel">Sell / Rent</label>
+          <div className="formButtons">
+            <button
+              type="button"
+              className={type == "sale" ? "formButtonActive" : "formButton"}
+              id="type"
+              value="sale"
+              onClick={onMutate}
+            >
+              Sell
+            </button>
+            <button
+              type="button"
+              className={type == "rent" ? "formButtonActive" : "formButton"}
+              id="type"
+              value="rent"
+              onClick={onMutate}
+            >
+              Rent
+            </button>
+          </div>
+        </form>
+      </main>
+    </div>
+  );
 };
 
 export default CreateListing;
