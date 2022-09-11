@@ -75,9 +75,37 @@ const CreateListing = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    console.log(formData);
   };
 
-  const onMutate = (e) => {};
+  // buttonlarni toogle qiladi
+  const onMutate = (e) => {
+    let boolean = null;
+
+    if (e.target.value == "true") {
+      boolean = true;
+    }
+
+    if (e.target.value == "false") {
+      boolean = false;
+    }
+
+    // files
+    if (e.target.files) {
+      setFormData((prevState) => ({
+        ...prevState,
+        images: e.target.files,
+      }));
+    }
+
+    // text/boolean/number
+    if (!e.target.files) {
+      setFormData((prevState) => ({
+        ...prevState,
+        [e.target.id]: boolean ?? e.target.value,
+      }));
+    }
+  };
 
   return (
     <div className="profile">
