@@ -148,6 +148,32 @@ const CreateListing = () => {
               />
             </div>
           </div>
+
+          <label className="formLabel">Parking spot</label>
+          <div className="formButtons">
+            <button
+              className={parking ? "formButtonActive" : "formButton"}
+              type="button"
+              id="parking"
+              value={true}
+              onClick={onMutate}
+              min="1"
+              max="50"
+            >
+              Yes
+            </button>
+            <button
+              className={
+                !parking && parking !== null ? "formButtonActive" : "formButton"
+              }
+              type="button"
+              id="parking"
+              value={false}
+              onClick={onMutate}
+            >
+              No
+            </button>
+          </div>
         </form>
       </main>
     </div>
