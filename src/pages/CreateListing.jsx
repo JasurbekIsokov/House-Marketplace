@@ -169,9 +169,22 @@ const CreateListing = () => {
       return;
     });
 
-    console.log(imgUrls);
+    const formDataCopy = {
+      ...formData,
+      imgUrls,
+      // geolocation,
+      timestamp: serverTimestamp(),
+    };
 
+    delete formDataCopy.images;
+    delete formDataCopy.address;
+    // location && (formDataCopy.location = location)
+    !formDataCopy.offer && delete formDataCopy.discountedPrice;
+
+    const docRef = await addDoc(collection(db, "listings"), formDataCopy);
     setLoading(false);
+    toast.success("Listing saved");
+    navigate(`/category/${formDataCopy.type}/${docRef.id}`);
   };
 
   // buttonlarni toogle qiladi
