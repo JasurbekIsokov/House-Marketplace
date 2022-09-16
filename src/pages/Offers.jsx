@@ -15,11 +15,10 @@ import { toast } from "react-toastify";
 import Spinner from "../Components/Spinner";
 import ListingItem from "../Components/ListingItem";
 
-const Offers = () => {
-  const [listing, setListing] = useState(null);
+function Offers() {
+  const [listings, setListings] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  const params = useParams();
+  const [lastFetchedListing, setLastFetchedListing] = useState(null);
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -27,7 +26,7 @@ const Offers = () => {
         // Get reference
         const listingsRef = collection(db, "listings");
 
-        // Create query
+        // Create a query
         const q = query(
           listingsRef,
           where("offer", "==", true),
@@ -38,6 +37,9 @@ const Offers = () => {
         // Execute query
         const querySnap = await getDocs(q);
 
+        const lastVisible = querySnap.docs[querySnap.docs.length - 1];
+        setLastFetchedListing(lastVisible);
+
         const listings = [];
 
         querySnap.forEach((doc) => {
@@ -47,7 +49,7 @@ const Offers = () => {
           });
         });
 
-        setListing(listings);
+        setListings(listings);
         setLoading(false);
       } catch (error) {
         toast.error("Could not fetch listings");
@@ -57,6 +59,43 @@ const Offers = () => {
     fetchListings();
   }, []);
 
+  // Pagination / Load More
+  const onFetchMoreListings = async () => {
+    try {
+      // Get reference
+      const listingsRef = collection(db, "listings");
+
+      // Create a query
+      const q = query(
+        listingsRef,
+        where("offer", "==", true),
+        orderBy("timestamp", "desc"),
+        startAfter(lastFetchedListing),
+        limit(10)
+      );
+
+      // Execute query
+      const querySnap = await getDocs(q);
+
+      const lastVisible = querySnap.docs[querySnap.docs.length - 1];
+      setLastFetchedListing(lastVisible);
+
+      const listings = [];
+
+      querySnap.forEach((doc) => {
+        return listings.push({
+          id: doc.id,
+          data: doc.data(),
+        });
+      });
+
+      setListings((prevState) => [...prevState, ...listings]);
+      setLoading(false);
+    } catch (error) {
+      toast.error("Could not fetch listings");
+    }
+  };
+
   return (
     <div className="category">
       <header>
@@ -65,11 +104,11 @@ const Offers = () => {
 
       {loading ? (
         <Spinner />
-      ) : listing && listing.length > 0 ? (
+      ) : listings && listings.length > 0 ? (
         <>
           <main>
             <ul className="categoryListings">
-              {listing.map((listing) => (
+              {listings.map((listing) => (
                 <ListingItem
                   listing={listing.data}
                   id={listing.id}
@@ -78,12 +117,20 @@ const Offers = () => {
               ))}
             </ul>
           </main>
+
+          <br />
+          <br />
+          {lastFetchedListing && (
+            <p className="loadMore" onClick={onFetchMoreListings}>
+              Load More
+            </p>
+          )}
         </>
       ) : (
         <p>There are no current offers</p>
       )}
     </div>
   );
-};
+}
 
 export default Offers;
