@@ -8,6 +8,9 @@ import Spinner from "./Spinner";
 
 import Slider from "react-slick";
 
+import { render } from "react-dom";
+import Typed from "react-typed";
+
 const CostumeSlider = () => {
   const [loading, setLoading] = useState(true);
   const [listings, setListings] = useState(null);
@@ -67,7 +70,9 @@ const CostumeSlider = () => {
               className="swiperSlideDiv"
             >
               <img src={data.imgUrls[0]} alt="img" className="swiperSlideImg" />
-              <p className="swiperSlideText">{data.name}</p>
+              <p className="swiperSlideText">
+                <Typed strings={[`${data.name}`]} typeSpeed={60} />
+              </p>
               <p className="swiperSlidePrice">
                 ${data.discountedPrice ?? data.regularPrice}
                 {data.type === "rent" && "/ month"}
