@@ -50,6 +50,8 @@ const Listing = () => {
     return <Spinner />;
   }
 
+  // console.log(listing.useRef);
+
   return (
     <main>
       <Helmet>
@@ -122,7 +124,7 @@ const Listing = () => {
 
         {auth.currentUser?.uid !== listing.userRef && (
           <Link
-            to={`/contact/${listing.userRef}?listingName=${listing.name}`}
+            to={`/contact/${listing.useRef}?listingName=${listing.name}`}
             className="primaryButton"
           >
             Contact Landlord

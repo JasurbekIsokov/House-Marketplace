@@ -121,7 +121,7 @@ function Category() {
           <main>
             <ul className="categoryListings">
               {listings.map((listing) => (
-                <div data-aos="fade-up">
+                <div key={listing.id} data-aos="fade-up">
                   <ListingItem
                     listing={listing.data}
                     id={listing.id}
