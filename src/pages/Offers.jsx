@@ -15,6 +15,12 @@ import { toast } from "react-toastify";
 import Spinner from "../Components/Spinner";
 import ListingItem from "../Components/ListingItem";
 
+// aos -> animate on scroll
+import AOS from "aos";
+import "aos/dist/aos.css"; // You can also use <link> for styles
+// ..
+AOS.init();
+
 function Offers() {
   const [listings, setListings] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -109,11 +115,13 @@ function Offers() {
           <main>
             <ul className="categoryListings">
               {listings.map((listing) => (
-                <ListingItem
-                  listing={listing.data}
-                  id={listing.id}
-                  key={listing.id}
-                />
+                <div data-aos="fade-up">
+                  <ListingItem
+                    listing={listing.data}
+                    id={listing.id}
+                    key={listing.id}
+                  />
+                </div>
               ))}
             </ul>
           </main>
