@@ -41,7 +41,6 @@ const CostumeSlider = () => {
       });
 
       setListings(listings);
-      console.log(listings);
       setLoading(false);
     };
 

@@ -834,3 +834,13 @@ button {
 .slick-track {
   height: 360px;
 }
+
+@media only screen and (max-width: 576px) {
+  .slick-track {
+    height: 280px;
+  }
+
+  .swiperSlideImg {
+    height: 270px;
+  }
+}

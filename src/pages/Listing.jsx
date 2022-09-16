@@ -7,10 +7,23 @@ import { db } from "../firebace.config";
 import Spinner from "../Components/Spinner";
 import shareIcon from "../assets/svg/shareIcon.svg";
 
+import Slider from "react-slick";
+
 const Listing = () => {
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   const [shareLinkCopied, setShareLinkCopied] = useState(false);
+
+  let settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    pauseOnHover: true,
+  };
 
   const navigate = useNavigate();
   const params = useParams();
@@ -23,6 +36,7 @@ const Listing = () => {
 
       if (docSnap.exists()) {
         setListing(docSnap.data());
+
         setLoading(false);
       }
     };
@@ -36,6 +50,18 @@ const Listing = () => {
 
   return (
     <main>
+      <Slider {...settings}>
+        {listing.imgUrls.map((url, index) => (
+          <div className="swiperSlideDiv" key={index}>
+            <img
+              key={index}
+              src={listing.imgUrls[index]}
+              alt="img"
+              className="swiperSlideImg"
+            />
+          </div>
+        ))}
+      </Slider>
       <div
         className="shareIconDiv"
         onClick={() => {
