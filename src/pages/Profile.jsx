@@ -38,7 +38,7 @@ const Profile = () => {
 
       const q = query(
         listingsRef,
-        where("userRef", "==", auth.currentUser.uid),
+        where("useRef", "==", auth.currentUser.uid),
         orderBy("timestamp", "desc")
       );
 
