@@ -6,11 +6,24 @@ import { db } from "../firebace.config";
 
 import Spinner from "./Spinner";
 
-const Slider = () => {
+import Slider from "react-slick";
+
+const CostumeSlider = () => {
   const [loading, setLoading] = useState(true);
   const [listings, setListings] = useState(null);
 
   const navigate = useNavigate();
+
+  let settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    pauseOnHover: true,
+  };
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -28,6 +41,7 @@ const Slider = () => {
       });
 
       setListings(listings);
+      console.log(listings);
       setLoading(false);
     };
 
@@ -46,9 +60,25 @@ const Slider = () => {
     listings && (
       <>
         <p className="exploreHeading">Recommended</p>
+        <Slider {...settings}>
+          {listings.map(({ data, id }) => (
+            <div
+              key={id}
+              onClick={() => navigate(`/category/${data.type}/${id}`)}
+              className="swiperSlideDiv"
+            >
+              <img src={data.imgUrls[0]} alt="img" className="swiperSlideImg" />
+              <p className="swiperSlideText">{data.name}</p>
+              <p className="swiperSlidePrice">
+                ${data.discountedPrice ?? data.regularPrice}
+                {data.type === "rent" && "/ month"}
+              </p>
+            </div>
+          ))}
+        </Slider>
       </>
     )
   );
 };
 
-export default Slider;
+export default CostumeSlider;

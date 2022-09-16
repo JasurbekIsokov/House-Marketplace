@@ -338,7 +338,11 @@ button {
 
 .swiperSlideImg {
   width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
   object-fit: cover;
+  height: 350px;
 }
 
 .swiperSlideText {
@@ -823,4 +827,10 @@ button {
   margin-left: 1rem;
   font-size: 0.8rem;
   opacity: 0.75;
+}
+
+/* Slider */
+
+.slick-track {
+  height: 360px;
 }
