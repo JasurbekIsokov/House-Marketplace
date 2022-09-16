@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
+import { Helmet } from "react-helmet";
+
 import { getDoc, doc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from "../firebace.config";
@@ -50,6 +52,9 @@ const Listing = () => {
 
   return (
     <main>
+      <Helmet>
+        <title>{listing.name}</title>
+      </Helmet>
       <Slider {...settings}>
         {listing.imgUrls.map((url, index) => (
           <div className="swiperSlideDiv" key={index}>
