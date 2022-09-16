@@ -1,11 +1,10 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebace.config";
 import { toast } from "react-toastify";
 
-const Contact = () => {
+function Contact() {
   const [message, setMessage] = useState("");
   const [landlord, setLandlord] = useState(null);
   // eslint-disable-next-line
@@ -16,6 +15,7 @@ const Contact = () => {
   useEffect(() => {
     const getLandlord = async () => {
       const docRef = doc(db, "users", params.landlordId);
+
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
@@ -70,6 +70,6 @@ const Contact = () => {
       )}
     </div>
   );
-};
+}
 
 export default Contact;
