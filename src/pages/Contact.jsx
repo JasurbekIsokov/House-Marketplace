@@ -15,7 +15,6 @@ function Contact() {
   useEffect(() => {
     const getLandlord = async () => {
       const docRef = doc(db, "users", params.landlordId);
-
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
