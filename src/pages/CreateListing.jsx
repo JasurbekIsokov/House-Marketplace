@@ -111,8 +111,6 @@ const CreateListing = () => {
 
       location = geolocation.lat;
 
-      console.log(location);
-
       if (location === undefined) {
         setLoading(false);
         toast.error("Please enter a correct address");
@@ -178,7 +176,7 @@ const CreateListing = () => {
       timestamp: serverTimestamp(),
     };
 
-    // formDataCopy.location = address;
+    formDataCopy.location = address;
     delete formDataCopy.images;
     delete formDataCopy.address;
     !formDataCopy.offer && delete formDataCopy.discountedPrice;
