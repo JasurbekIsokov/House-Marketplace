@@ -17,6 +17,8 @@ import Spinner from "../Components/Spinner";
 const CreateListing = () => {
   const [geolocationEnabled, setGeolocationEnabled] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [lat, setLat] = useState(null);
+  const [lng, setLng] = useState(null);
   const [formData, setFormData] = useState({
     type: "rent",
     name: "",
@@ -52,6 +54,16 @@ const CreateListing = () => {
   const auth = getAuth();
   const navigate = useNavigate();
   const isMounted = useRef(true);
+
+  // joylashuvni olish
+
+  useEffect(() => {
+    // Location
+    navigator.geolocation.getCurrentPosition(function (position) {
+      setLat(position.coords.latitude);
+      setLng(position.coords.longitude);
+    });
+  }, []);
 
   useEffect(() => {
     if (isMounted) {
@@ -93,30 +105,20 @@ const CreateListing = () => {
     let geolocation = {};
     let location;
 
-    // if (geolocationEnabled) {
-    //   const response = await fetch(
-    //     `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GEOCODE_API_KEY}`
-    //   );
+    if (geolocationEnabled) {
+      geolocation.lat = lat ?? 0;
+      geolocation.lng = lng ?? 0;
 
-    //   const data = await response.json();
+      location = geolocation.lat;
 
-    //   geolocation.lat = data.results[0]?.geometry.location.lat ?? 0;
-    //   geolocation.lng = data.results[0]?.geometry.location.lng ?? 0;
+      console.log(location);
 
-    //   location =
-    //     data.status === "ZERO_RESULTS"
-    //       ? undefined
-    //       : data.results[0]?.formatted_address;
-
-    //   if (location === undefined || location.includes("undefined")) {
-    //     setLoading(false);
-    //     toast.error("Please enter a correct address");
-    //     return;
-    //   }
-    // } else {
-    //   geolocation.lat = latitude;
-    //   geolocation.lng = longitude;
-    // }
+      if (location === undefined) {
+        setLoading(false);
+        toast.error("Please enter a correct address");
+        return;
+      }
+    }
 
     //------------------------------------------
     // Store image in firebase
@@ -172,7 +174,7 @@ const CreateListing = () => {
     const formDataCopy = {
       ...formData,
       imgUrls,
-      // geolocation,
+      geolocation,
       timestamp: serverTimestamp(),
     };
 
