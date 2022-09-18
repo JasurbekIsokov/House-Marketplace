@@ -434,6 +434,12 @@ button {
   }
 }
 
+@media (max-width: 576px) {
+  .categoryListingImg {
+    border-radius: 1rem;
+  }
+}
+
 .categoryListingDetails {
   width: 65%;
 }
